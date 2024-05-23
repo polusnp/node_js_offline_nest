@@ -7,12 +7,15 @@ import {
   Delete,
   Put,
   ParseIntPipe,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
 
 import { CreateUserDto } from '../dto/createUser.dto';
 import { UpdateUserDto } from '../dto/updateUser.dto';
 import { UsersService } from '../services/users.service';
 import { User } from '../entities/user.entity';
+import { JwtAuthGuard } from 'src/modules/auth/guards/jwt.guard';
 
 @Controller('users')
 export class UsersController {
@@ -45,4 +48,10 @@ export class UsersController {
   async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.usersService.remove(id);
   }
+
+  // // @UseGuards(JwtAuthGuard)
+  // @Get('profile')
+  // getProfile(@Request() req) {
+  //   return req.user;
+  // }
 }
